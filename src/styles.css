@@ -135,4 +135,110 @@ tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:#fbfcff}
         margin-left: 0;
         background-attachment: scroll;
     }
+<<<<<<< HEAD
+=======
+}
+
+.profile {
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #edf0f5;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+}
+.logout-profile:hover {
+    background: #fff5f5;
+}
+.logout-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #d84a4a;
+    font-size: 9px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+.login-page {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background:
+        linear-gradient(rgba(32, 48, 78, .68), rgba(32, 48, 78, .68)),
+        url('./public/stadium.jpg') center/cover;
+}
+.login-card {
+    width: min(420px, 100%);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 22px 70px rgba(20, 32, 54, .28);
+    padding: 28px;
+}
+.login-brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 28px;
+}
+.login-brand strong {
+    display: block;
+    color: #18263d;
+    font-size: 20px;
+}
+.login-brand span {
+    display: block;
+    color: #8c98aa;
+    font-size: 9px;
+    letter-spacing: 1.35px;
+    margin-top: 3px;
+}
+.login-heading h1 {
+    margin-bottom: 8px;
+}
+.login-heading p {
+    color: #8b96a7;
+    font-size: 11px;
+    line-height: 1.7;
+}
+.login-form {
+    display: grid;
+    gap: 15px;
+    margin-top: 22px;
+}
+.login-form label {
+    display: grid;
+    gap: 7px;
+}
+.login-form label span {
+    color: #56647a;
+    font-size: 10px;
+    font-weight: 700;
+}
+.login-form input {
+    width: 100%;
+    border: 1px solid #dfe5ee;
+    border-radius: 8px;
+    padding: 12px;
+    outline: 0;
+    font-size: 12px;
+}
+.login-form input:focus {
+    border-color: #7ea6fa;
+    box-shadow: 0 0 0 3px rgba(40, 104, 232, .08);
+}
+.login-button {
+    width: 100%;
+    margin-top: 3px;
+}
+.login-button:disabled {
+    cursor: wait;
+    opacity: .75;
+}
+.login-help {
+    margin: 18px 0 0;
+    text-align: center;
+    color: #98a2b1;
+    font-size: 9px;
+>>>>>>> 988d88e4f6f9ce7ec6b7c096403d907c2e1891e2
 }

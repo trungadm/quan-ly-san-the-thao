@@ -50,3 +50,15 @@ Backend tự tìm file `.env` ở thư mục dự án và thư mục cha. `src/a
 - `database.sql`: tạo bảng tài khoản người dùng.
 - `src/styles.css`: giao diện responsive.
 - `src/main.jsx`: điểm khởi chạy React.
+<<<<<<< HEAD
+=======
+
+## Đăng nhập
+
+Tài khoản mặc định sau khi chạy `database.sql`:
+
+- Tên đăng nhập: `admin`
+- Mật khẩu: `123456`
+
+Tài khoản nhân viên trong `seed-users.sql` cũng sử dụng mật khẩu mặc định `123456`.
+>>>>>>> 988d88e4f6f9ce7ec6b7c096403d907c2e1891e2

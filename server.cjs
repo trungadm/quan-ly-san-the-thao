@@ -2,6 +2,10 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const path = require('path');
+<<<<<<< HEAD
+=======
+const crypto = require('crypto');
+>>>>>>> 988d88e4f6f9ce7ec6b7c096403d907c2e1891e2
 require('dotenv').config({
     path: [
         path.resolve(__dirname, '.env'),
@@ -11,14 +15,25 @@ require('dotenv').config({
 
 const app = express();
 
+<<<<<<< HEAD
+=======
+const sessions = new Map();
+const hashPassword = (password) => crypto.createHash('sha256').update(password).digest('hex');
+
+>>>>>>> 988d88e4f6f9ce7ec6b7c096403d907c2e1891e2
 app.use(cors());
 app.use(express.json());
 
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
+<<<<<<< HEAD
     password: '1234567', // Đã cập nhật mật khẩu theo yêu cầu của cậu
     database: 'quanlysanthethao', // Đã khớp với tên schema cậu vừa tạo trong Workbench
+=======
+    password: process.env.DB_PASSWORD,
+    database: 'sportiva',
+>>>>>>> 988d88e4f6f9ce7ec6b7c096403d907c2e1891e2
     port: 3306,
     waitForConnections: true,
     connectionLimit: 10,
@@ -50,6 +65,56 @@ app.get('/api/test', (req, res) => {
     });
 });
 
+<<<<<<< HEAD
+=======
+app.post('/api/login', (req, res) => {
+    const username = String(req.body.username || '').trim();
+    const password = String(req.body.password || '');
+
+    if (!username || !password) {
+        return res.status(400).json({ error: 'Vui lòng nhập tên đăng nhập và mật khẩu.' });
+    }
+
+    db.query(
+        'SELECT id, name, username, role, status, password FROM users WHERE username = ? LIMIT 1',
+        [username],
+        (err, rows) => {
+            if (err) return res.status(500).json({ error: err.message });
+            if (!rows.length) return res.status(401).json({ error: 'Tên đăng nhập hoặc mật khẩu không đúng.' });
+
+            const user = rows[0];
+            if (user.status !== 'Hoạt động') {
+                return res.status(403).json({ error: 'Tài khoản đã bị khóa.' });
+            }
+            if (!user.password || hashPassword(password) !== user.password) {
+                return res.status(401).json({ error: 'Tên đăng nhập hoặc mật khẩu không đúng.' });
+            }
+
+            const token = crypto.randomBytes(32).toString('hex');
+            const session = { id: user.id, name: user.name, username: user.username, role: user.role };
+            sessions.set(token, session);
+            res.json({ token, user: session });
+        }
+    );
+});
+
+app.post('/api/logout', (req, res) => {
+    const token = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+    sessions.delete(token);
+    res.json({ message: 'Đã đăng xuất.' });
+});
+
+app.use('/api', (req, res, next) => {
+    if (req.path === '/test') return next();
+    const token = String(req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+    if (!token || !sessions.has(token)) {
+        return res.status(401).json({ error: 'Phiên đăng nhập đã hết hạn.' });
+    }
+    req.user = sessions.get(token);
+    next();
+});
+
+>>>>>>> 988d88e4f6f9ce7ec6b7c096403d907c2e1891e2
 const resources = {
     fields: {
         table: 'fields',
@@ -78,7 +143,11 @@ const resources = {
     users: {
         table: 'users',
         select: 'id, name, username, role, status',
+<<<<<<< HEAD
         columns: { name: 'name', username: 'username', role: 'role', status: 'status' },
+=======
+        columns: { name: 'name', username: 'username', password: 'password', role: 'role', status: 'status' },
+>>>>>>> 988d88e4f6f9ce7ec6b7c096403d907c2e1891e2
         required: ['name', 'username', 'role', 'status']
     }
 };
@@ -138,6 +207,18 @@ function getValues(req, res) {
 app.post('/api/:resource', getResource, (req, res) => {
     const data = getValues(req, res);
     if (!data) return;
+<<<<<<< HEAD
+=======
+    if (req.params.resource === 'users') {
+        if (!req.body.password) return res.status(400).json({ error: 'Vui lòng nhập mật khẩu.' });
+        const passwordIndex = data.keys.indexOf('password');
+        if (passwordIndex >= 0) data.values[passwordIndex] = hashPassword(String(req.body.password));
+        else {
+            data.keys.push('password');
+            data.values.push(hashPassword(String(req.body.password)));
+        }
+    }
+>>>>>>> 988d88e4f6f9ce7ec6b7c096403d907c2e1891e2
 
     const { table, columns } = req.resource;
     const columnNames = data.keys.map((key) => columns[key]);
@@ -157,6 +238,20 @@ app.post('/api/:resource', getResource, (req, res) => {
 app.put('/api/:resource/:id', getResource, (req, res) => {
     const data = getValues(req, res);
     if (!data) return;
+<<<<<<< HEAD
+=======
+    if (req.params.resource === 'users') {
+        const passwordIndex = data.keys.indexOf('password');
+        if (passwordIndex >= 0) {
+            if (String(req.body.password || '').trim()) {
+                data.values[passwordIndex] = hashPassword(String(req.body.password));
+            } else {
+                data.keys.splice(passwordIndex, 1);
+                data.values.splice(passwordIndex, 1);
+            }
+        }
+    }
+>>>>>>> 988d88e4f6f9ce7ec6b7c096403d907c2e1891e2
 
     const { table, columns } = req.resource;
     const assignments = data.keys.map((key) => `${columns[key]} = ?`);
