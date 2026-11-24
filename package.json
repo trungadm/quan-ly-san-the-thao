@@ -1,0 +1,24 @@
+{
+  "name": "quan-ly-san-the-thao",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "lucide-react": "^0.468.0",
+    "mysql2": "^3.24.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^6.1.0"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true
+  }
+}
